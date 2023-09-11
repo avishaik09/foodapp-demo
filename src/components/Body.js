@@ -1,9 +1,9 @@
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { restaurantsList } from "../config";
 import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-import {filterData }from "../utils/common"
+import { filterData } from "../utils/common";
 import useOnline from "../utils/useOnline";
 import UserContext from "../utils/UserContext";
 
@@ -14,8 +14,7 @@ const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-const {user,setUser} = useContext(UserContext)
- 
+  const { user, setUser } = useContext(UserContext);
 
   const handleSearch = () => {
     const data = filterData(search, allRestaurants);
@@ -40,7 +39,6 @@ const {user,setUser} = useContext(UserContext)
     getData();
   }, []);
 
-
   const isOnline = useOnline();
   if (!isOnline) {
     return <h1>🔴 Offline, please check your internet connection!!</h1>;
@@ -52,28 +50,36 @@ const {user,setUser} = useContext(UserContext)
   if (!allRestaurants) return null;
 
   return allRestaurants.length === 0 ? (
-    <Shimmer/>
+    <Shimmer />
+  ) : (
     // <Image
     //   src="https://source.unsplash.com/random/800x600"
     //   fallback={<Shimmer width={800} height={600} />}
     // />
-  ) : (
     <>
       <div className="search-container p-5 bg-pink-100 my-5 ">
         <input
+        data-testid="search-input"
           className="focus:bg-cyan-100 m2 px-2"
           type="text"
           placeholder="search"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button className="search-btn p-2 m-2 bg-purple-300 rounded-md text-white hover:bg-violet-700" onClick={handleSearch}>
+        <button data-testid="search-btn"
+          className="search-btn p-2 m-2 bg-purple-300 rounded-md text-white hover:bg-violet-700"
+          onClick={handleSearch}
+        >
           Search
         </button>
-        <input type="text" value={user.name} onChange={(e)=>setUser({name:e.target.value})}/>
+        <input
+          type="text"
+          value={user.name}
+          onChange={(e) => setUser({ name: e.target.value })}
+        />
       </div>
 
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap" data-testid="res-list">
         {/* <RestrauntCard restaurants={restaurants[0]} /> */}
         {/* <RestrauntCard {...restaurants[0].info} /> */}
 
@@ -82,11 +88,12 @@ const {user,setUser} = useContext(UserContext)
         ) : ( */}
         {filteredRestaurants.map((restaurant) => {
           return (
-            <Link style={{textDecoration: 'none'}}
+            <Link
+              style={{ textDecoration: "none" }}
               to={"/restaurant/" + restaurant.info.id}
               key={restaurant.info.id}
             >
-              <RestaurantCard {...restaurant.info} user={user}/>
+              <RestaurantCard {...restaurant.info} user={user} />
             </Link>
           );
         })}
