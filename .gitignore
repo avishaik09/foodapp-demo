@@ -3,3 +3,4 @@ dist/
 *.class
 
 .parcel-cache
+/coverage

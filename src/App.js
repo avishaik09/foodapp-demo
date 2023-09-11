@@ -75,17 +75,18 @@ const AppLayout = () => {
     email: "abhishek@gmail.com",
   });
   return (
-    <><Provider store={store}>
-      <UserContext.Provider
-        value={{
-          user: user,
-          setUser: setUser
-        }}
-      >
-        <Header />
-        <Outlet />
-        <Footer />
-      </UserContext.Provider>
+    <>
+      <Provider store={store}>
+        <UserContext.Provider
+          value={{
+            user: user,
+            setUser: setUser,
+          }}
+        >
+          <Header />
+          <Outlet />
+          <Footer />
+        </UserContext.Provider>
       </Provider>
     </>
   );
@@ -132,7 +133,7 @@ const appRoutes = createBrowserRouter([
           </Suspense>
         ),
       },
-      { path: "/cart", element: <Cart /> },
+      { path: "/cart", element: <Cart/> },
     ],
   },
 ]);

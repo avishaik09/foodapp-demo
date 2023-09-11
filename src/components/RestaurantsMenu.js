@@ -9,15 +9,16 @@ import { addItem } from "../utils/cartSlice";
 export default function RestaurantsMenu() {
   const params = useParams();
   const { id } = params;
-  const restaurant=useRestaurant(id);
-const dispatch=useDispatch();
-  const handleAddItem=()=>{
-dispatch(addItem("pizza"))
-  }
+  const restaurant = useRestaurant(id);
+ 
+  const dispatch = useDispatch();
+   const handleAddItem = () => {
+    dispatch(addItem("pizza"));
+  };
 
-  const addFoodItem=(item)=>{
-    dispatch(addItem(item))
-  }
+  const addFoodItem = (item) => {
+    dispatch(addItem(item));
+  };
   // const [restaurant, setRestauraunt] = useState(null);
   // async function getRestaurantInfo() {
   //   const data = await fetch(
@@ -52,16 +53,26 @@ dispatch(addItem("pizza"))
         <h3>{restaurant?.cards[0].card.card.info.costForTwoMessage}</h3>
       </div>
       <div>
-<button className="p-2 m-2 bg-green-300" onClick={handleAddItem}>Add item</button>
+        <button className="p-2 m-2 bg-green-300" onClick={handleAddItem}>
+          Add item
+        </button>
       </div>
-      <div>
+      <div className="p-5">
         <h1>Menu</h1>
         <ul>
           {Object.values(
             restaurant.cards[2].groupedCard.cardGroupMap.REGULAR.cards[3].card
               .card.itemCards
           ).map((item) => (
-            <li key={item.card.info.id}>{item.card.info.name} -- <button className="m-2 p-2 bg-yellow-300" onClick={()=>addFoodItem(item)}>Add</button> </li>
+            <li key={item.card.info.id}>
+              {item.card.info.name} --{" "}
+              <button
+                className="m-2 p-2 bg-yellow-300"
+                onClick={() => addFoodItem(item)}
+              >
+                Add
+              </button>
+            </li>
           ))}
         </ul>
       </div>

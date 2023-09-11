@@ -1,18 +1,16 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import FoodItems from "./FoodItems";
 import { clearCart } from "../utils/cartSlice";
-
 
 function Cart() {
   const cartItems = useSelector((store) => store.cart.items);
   const dispatch = useDispatch();
   const handleClearCart = () => {
     dispatch(clearCart());
-
-    console.log(cartItems);
   };
-
+  console.log(cartItems);
+  console.table(cartItems[1].card.info);
+  console.table(typeof(cartItems));
   return (
     <div>
       <h1 className="font-bold text-3xl"> Cart Items - {cartItems.length}</h1>
@@ -22,11 +20,12 @@ function Cart() {
       >
         Clear Cart
       </button>
-      <div className="flex">
-      <FoodItems  {...cartItems[0].card.info} />;
-        {cartItems.map((Items) => {
-          <FoodItems key={Items.card.info.id} {...Items.info} />;
-        })}
+      <div className="flex flex-wrap">
+     
+  {cartItems.map((item) => (
+  <FoodItems key={item.card.info.id} {...item.card.info} />
+))}
+
       </div>
     </div>
   );

@@ -14,7 +14,7 @@ const Header = () => {
   const { user } = useContext(UserContext);
 
 
-  const cartItems=useSelector(store=>store.cart.items);
+  const cartItems=useSelector((store)=>store.cart.items);
 
   return (
     <div className="flex justify-between bg-pink-100 shadow-lg sm:bg-red-200 lg:bg-pink-200 ">
@@ -35,10 +35,10 @@ const Header = () => {
             <li className="px-2">Instamart</li>
           </Link>
           <Link to="/cart">
-          <li className="px-2">Cart {cartItems.length}</li></Link>
+          <li className="px-2" data-testid="cart">Cart {cartItems.length}</li></Link>
         </ul>
       </div>
-      <h1 className=" py-10  ">{isOnline ? "✅ Online" : "🔴 Offline"}</h1>
+      <h1 data-testid="online-status" className=" py-10  ">{isOnline ? "✅ Online" : "🔴 Offline"}</h1>
       <span className="p-10 font-bold text-red-600">{user.name}</span>
       {isLoggedIn ? (
         <button className=" bg-red-400 " onClick={() => setIsLoggedIn(false)}>
